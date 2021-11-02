@@ -29,6 +29,11 @@ from sklearn import preprocessing
 # from functools import reduce
 
 
+# set pybedtools new tmp dir 
+tmp_dir = "/data5/deepro/tmp/"
+pybedtools.helpers.set_tempdir(tmp_dir)
+
+
 def timestamp():
     return str(datetime.datetime.now()).split('.')[0]
 
