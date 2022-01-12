@@ -384,9 +384,9 @@ def proc_bam(prefix, chromSize, bedFile, bamFiles, minSize=200, maxSize=1000, re
         total_mapped_reads = b.mapped
         b.close()
 
-        print("[%s] Parallel processing using %i cores" % (timestamp(), cpu_count()))
+        print("[%s] Parallel processing using %i cores" % (timestamp(), 64))
         args_list = [(bam, c, uid + bamidx[j], minSize, maxSize, strand, readStart) for c in list_chr(chromSize)]
-        pool = Pool(processes=cpu_count())
+        pool = Pool(processes=64)
         if singleEnd:
             print("[%s] Using single-end mode (SE mode uses read start position and min-max options are ignored)" % (timestamp()))
             list_counts = pool.map(bam_proc_worker_se, args_list)
@@ -892,8 +892,8 @@ def proc_fenergy(bedFile, fileOut, linearfold, genome):
         prefixes.append(["tmp" + uid + "_" + str(part_num), linearfold, genome])
 
     ### parallel compute linearfold
-    print("[%s] Parallel computing using %i cores" % (timestamp(), cpu_count()))
-    pool = Pool(processes=cpu_count())
+    print("[%s] Parallel computing using %i cores" % (timestamp(), 64))
+    pool = Pool(processes=64)
     pool.map(run_linearfold, prefixes)
 
     ### merge bed
